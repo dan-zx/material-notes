@@ -1,7 +1,9 @@
 MaterialNotes
 ===========
 
-Note-taking app with Material Design for Android
+Note-taking app with Material Design for Android.
+
+![Demo](https://dl.dropboxusercontent.com/u/1995295/img/MaterialNotes/demo.gif)
 
 License
 =======
