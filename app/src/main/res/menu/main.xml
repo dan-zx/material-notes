@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:NotepadApp="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_about_info"
+        NotepadApp:showAsAction="never"
+        android:title="@string/action_about_notice" />
+    <item
+        android:id="@+id/action_licenses_info"
+        NotepadApp:showAsAction="never"
+        android:title="@string/action_licenses_notice" />
+
+</menu>

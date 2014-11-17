@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MaterialNotes</string>
+
+    <!-- MainActivity strings -->
+    <string name="title_activity_notes_list">Notes</string>
+    <string name="no_notes">No notes yet</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_about_notice">About</string>
+    <string name="action_licenses_notice">Open source licenses</string>
+    <string name="delete_notes_alert">Delete %s note(s)?</string>
+
+    <!-- Licenses dialog -->
+    <string name="dialog_licenses_notice_title">Open source licenses</string>
+
+    <!-- About dialog -->
+    <string name="version_format">Version %s</string>
+    <string name="copyright_info">&#169; Daniel Pedraza-Arcega</string>
+
+    <!-- EditNoteActivity strings -->
+    <string name="title_activity_edit_note">Edit note</string>
+    <string name="action_save">Save</string>
+    <string name="hint_note_title">Title</string>
+    <string name="hint_note_content">Content</string>
+    <string name="title_required">The note must have a title</string>
+    <string name="content_required">The note must have content</string>
+
+    <!-- ViewNoteActivity strings -->
+    <string name="title_activity_view_note">Note</string>
+    <string name="action_edit_note">Edit note</string>
+    <string name="label_created_at">Created at:</string>
+    <string name="label_updated_at">Updated at:</string>
+
+</resources>
