@@ -68,6 +68,7 @@ public class MainActivity extends RoboActionBarActivity {
             }
         });
         selectedPositions = new ArrayList<>();
+        listView.setTextFilterEnabled(true);
         setupNotesAdapter();
         setupActionModeCallback();
         setListOnItemClickListenersWhenNoActionMode();
@@ -75,9 +76,43 @@ public class MainActivity extends RoboActionBarActivity {
     }
 
     /** {@inheritDoc} */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
+
+        SearchView.OnQueryTextListener textChangeListener = new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextChange(String query)
+            {
+
+                listAdapter.getFilter().filter(query);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                // this is your adapter that will be filtered
+
+                return false;
+            }
+        };
+
+        searchView.setOnCloseListener( new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                listAdapter.getFilter().filter("");
+                return false;
+            }
+        });
+        searchView.setOnQueryTextListener(textChangeListener);
         return true;
     }
 
@@ -156,6 +191,16 @@ public class MainActivity extends RoboActionBarActivity {
                                     .show();
                         } else mode.finish();
                         return true;
+
+                    case R.id.action_share:
+                        if (!selectedPositions.isEmpty()){
+                            shareNotes(selectedPositions);
+                        }
+                        return true;
+
+                    case R.id.action_select_all:
+                        selectAll();
+                        return true;
                     default:
                         return false;
                 }
@@ -190,6 +235,15 @@ public class MainActivity extends RoboActionBarActivity {
         } else { // Mostrar lista
             listView.setVisibility(View.VISIBLE);
             emptyListTextView.setVisibility(View.GONE);
+        }
+    }
+
+    /* Method called when select all menu is clicked */
+    private void selectAll() {
+        for ( int i=0; i < listAdapter.getCount(); i++) {
+            selectedPositions.add(i);
+            notesData.get(i).setSelected(true);
+            listAdapter.notifyDataSetChanged();
         }
     }
 
@@ -243,6 +297,26 @@ public class MainActivity extends RoboActionBarActivity {
             }
         }
         listAdapter.notifyDataSetChanged();
+    }
+
+    /*
+this method is called when the contextual action button of share is pressed
+ */
+    private void shareNotes(ArrayList<Integer> selectedPositions) {
+        StringBuilder shareBody = new StringBuilder();
+        // Primero borra de la base de datos
+        for (int position : selectedPositions) {
+            NotesAdapter.NoteViewWrapper noteViewWrapper = notesData.get(position);
+            shareBody.append(noteViewWrapper.getNote().getTitle());
+            shareBody.append(noteViewWrapper.getNote().getContent());
+            shreBody.append("\n")
+        }
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody.toString());
+        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
     }
 
     /** Reinicia las notas seleccionadas a no seleccionadas y limpia la lista de seleccionados. */
