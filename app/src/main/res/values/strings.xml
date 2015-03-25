@@ -10,6 +10,10 @@
     <string name="action_about_notice">About</string>
     <string name="action_licenses_notice">Open source licenses</string>
     <string name="delete_notes_alert">Delete %s note(s)?</string>
+    
+    <string name="search_hint">Search notes</string>
+    <string name="action_select_all">Select all</string>
+    
 
     <!-- Licenses dialog -->
     <string name="dialog_licenses_notice_title">Open source licenses</string>
