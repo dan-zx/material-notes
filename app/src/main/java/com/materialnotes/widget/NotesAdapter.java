@@ -155,7 +155,7 @@ public class NotesAdapter extends BaseAdapter implements Filterable {
                     for(int i=0;i<data.size();i++){
                         String dataName = data.get(i).getNote().getContent().toLowerCase();
                         String title = data.get(i).getNote().getTitle().toLowerCase();
-                        if (dataName.contains(query) or title.contain(query)){
+                        if (dataName.contains(query) || title.contain(query)){
                             filtered.add(data.get(i));
                         }
 
